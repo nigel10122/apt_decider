@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+import { Input } from './Components/Input';
+
+const App = () => {
+
+  const [apartmentName, setApartmentName] = useState('');
+
+  const handleChange = (e : any) => {
+
+    setApartmentName(e.target.value)
+
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <main className="App">
+
+      <Input
+      PlaceHolder = "Enter Apartment Name"
+      onChange = {(e : any) => handleChange(e)}
+      />
+
+      <h1>{apartmentName}</h1>
+    </main>
+
   );
+
+
 }
 
 export default App;
