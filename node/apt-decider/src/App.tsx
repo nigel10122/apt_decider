@@ -7,27 +7,33 @@ import { LineBreak } from './Styles/LineBreak';
 
 const App = () => {
 
-  let apartments : any = [];
-
   const [apartment, setApartment] = useState('');
-  const [dict, setDict] = useState<any>([]);
+  const [pros, setPros] = useState<any>([]);
+  const [cons, setCons] = useState<any>([]);
 
   const handleAptNameChange = (e : any) => {
 
     e.preventDefault();
 
-    let newApartment = {
-      name : e.target.apartmentName.value,
-      pros : [],
-      cons : []
-    }
-
-    apartments.push(newApartment);
-    setApartment(e.target.apartmentName.value);
-    setDict(apartments);
+    setApartment(e.target.apartmentName.value); 
 
   }
 
+  const handlePros = (e : any) => {
+
+    e.preventDefault();
+
+    setPros([...pros, e.target.pro.value]);
+
+  }
+
+  const handleCons = (e : any) => {
+
+    e.preventDefault();
+
+    setCons([...cons, e.target.con.value]);
+
+  }
 
   return (
 
@@ -44,9 +50,16 @@ const App = () => {
       
      <DisplayBox
      Apartment = {apartment}
-     aptName = {apartment}/>
+     aptName = {apartment}
+     onSubmitPro = {(e : any) => handlePros(e)}
+     onSubmitCon = {(e : any) => handleCons(e)}/>
+
+     <h5> Pros : {JSON.stringify(pros)}</h5>
+
+     <h5> Cons : {JSON.stringify(cons)}</h5>
 
     </main>
+
 
   );
      

@@ -8,7 +8,7 @@ const Cons = (props : any) => {
     return(
         <div>
             <form onSubmit={props.onSubmit}>
-                <input className='cons' type='text' placeholder={props.placeHolder}></input>
+                <input className='cons' type='text' name='con' placeholder={props.placeHolder}></input>
                 <LineBreak/>
                 <input type="submit" placeholder="submit"></input>
             </form>
