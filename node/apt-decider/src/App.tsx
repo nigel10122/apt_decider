@@ -5,6 +5,9 @@ import { Apartment } from './Components/Apartment/Apartment';
 import { DisplayBox } from './Components/Conditional/ProsandCons/DisplayBox';
 import { LineBreak } from './Styles/LineBreak';
 import { DataDisp } from './Components/Conditional/Data/DataDisp';
+import { calcAptScore } from './Backend/calc-apt-score';
+import { calcWinner } from './Backend/calc-winner';
+
 
 const App = () => {
 
@@ -15,6 +18,8 @@ const App = () => {
   const [proArr, setPros] = useState<any>([]);
   const [conArr, setCons] = useState<any>([]);
   const [data, setData] = useState<any>([]);
+  const [winner, setWinner] = useState<any>({})
+
 
   const handleAptInputChange = (e : any) => {
 
@@ -68,22 +73,36 @@ const App = () => {
 
     e.preventDefault();
 
+    const score = calcAptScore(proArr, conArr);
+
     let newApt = {
     
       aptName : apartment,
       pros : proArr,
-      cons : conArr
+      cons : conArr,
+      score : score
     }
 
     setData([...data, newApt]);
 
+   
+   
+
     setApartment('');
     setPros([]);
     setCons([]);
+    
 
   } 
 
 
+  const markWinner = () => {
+
+    const winner = calcWinner(data);
+    
+    setWinner(winner);
+
+  }
 
   return (
 
@@ -99,7 +118,10 @@ const App = () => {
 
      <LineBreak/>
 
-      
+    <section className='pros-cons'>
+    <div className='u-flex u-flex-row'>
+
+    <div>
      <DisplayBox
      Apartment = {apartment}
      aptName = {apartment}
@@ -109,11 +131,12 @@ const App = () => {
      onChangePro = {(e : any) => handleProsInputChange(e)}
      onChangeCon = {(e : any) => handleConsInputChange(e)}
      proVal = {proInput}
-     conVal = {conInput}/>
-
+     conVal = {conInput}
+    />
+    </div>
      <LineBreak/>
 
-    <h4>{apartment}</h4>
+    <div>
     {proArr.map((pro : any, index : number) => {
       return(
         <p>Pro - {index + 1} : {pro}</p>
@@ -125,10 +148,18 @@ const App = () => {
         <p>Con - {index + 1} : {con}</p>
       );
     })}
-    <DataDisp
-    dataSet = {data}/>
+    </div>
 
-    {/* <p>{JSON.stringify(data)}</p> */}
+    </div>
+    </section>
+    <DataDisp
+    dataSet = {data}
+    calcWinner = {() => markWinner()}
+    Winner = {`The winner is ${winner["aptName"]} with a score of ${winner["score"]}`}/>
+
+  
+
+    
 
     </main>
 

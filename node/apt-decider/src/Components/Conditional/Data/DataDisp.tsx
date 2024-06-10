@@ -1,4 +1,5 @@
 
+import { LineBreak } from '../../../Styles/LineBreak';
 import './DataDisp.css'
 
 
@@ -13,6 +14,7 @@ const DataDisp = (props : any) => {
 
     if(isDataSetNotEmpty){
         return(
+            <>
             <table className="table">
                 <tr>
                     <th>APT NAME</th>
@@ -44,7 +46,7 @@ const DataDisp = (props : any) => {
                             })}
                         </ul>
                        </td>
-                       <td>0</td>
+                       <td>{data["score"]}</td>
                     </tr>
                     );
          
@@ -53,6 +55,14 @@ const DataDisp = (props : any) => {
                 
            
             </table>
+
+            <LineBreak/>
+
+            <button type="button" onClick = {props.calcWinner}>Calculate Winner</button>
+
+            <h3>{props.Winner}</h3> 
+
+            </>
         );
     }
     else{
