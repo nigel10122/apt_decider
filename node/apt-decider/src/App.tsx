@@ -8,32 +8,81 @@ import { LineBreak } from './Styles/LineBreak';
 const App = () => {
 
   const [apartment, setApartment] = useState('');
-  const [pros, setPros] = useState<any>([]);
-  const [cons, setCons] = useState<any>([]);
+  const [aptInput, setAptInput] = useState('');
+  const [proInput, setProInput] = useState('');
+  const [conInput, setConInput] = useState('');
+  const [proArr, setPros] = useState<any>([]);
+  const [conArr, setCons] = useState<any>([]);
+  const [data, setData] = useState<any>([]);
 
-  const handleAptNameChange = (e : any) => {
+  const handleAptInputChange = (e : any) => {
+
+   setAptInput(e.target.value);
+
+  }
+
+  const handleProsInputChange = (e : any) => {
+
+    setProInput(e.target.value);
+ 
+   }
+
+   const handleConsInputChange = (e : any) => {
+
+    setConInput(e.target.value);
+ 
+   }
+
+  const handleAptNameSubmit = (e : any) => {
 
     e.preventDefault();
 
     setApartment(e.target.apartmentName.value); 
 
+    setAptInput('');
+
   }
 
-  const handlePros = (e : any) => {
+  const handleProsSubmit = (e : any) => {
 
     e.preventDefault();
 
-    setPros([...pros, e.target.pro.value]);
+    setPros([...proArr, e.target.pro.value]);
+
+    setProInput('');
 
   }
 
-  const handleCons = (e : any) => {
+  const handleConsSubmit = (e : any) => {
 
     e.preventDefault();
 
-    setCons([...cons, e.target.con.value]);
+    setCons([...conArr, e.target.con.value]);
+
+    setConInput('');
 
   }
+
+  const onDoneMakeEntry = (e : Event) => {
+
+    e.preventDefault();
+
+    let newApt = {
+    
+      aptName : apartment,
+      pros : proArr,
+      cons : conArr
+    }
+
+    setData([...data, newApt]);
+
+    setApartment('');
+    setPros([]);
+    setCons([]);
+
+  } 
+
+
 
   return (
 
@@ -41,7 +90,9 @@ const App = () => {
 
       <Apartment
       PlaceHolder = "Enter Apartment Name"
-      onSubmit = {(e : any) => handleAptNameChange(e)}
+      onSubmit = {(e : any) => handleAptNameSubmit(e)}
+      onChange = {(e : any) => handleAptInputChange(e)}
+      aptVal = {aptInput}
       />
 
 
@@ -51,12 +102,16 @@ const App = () => {
      <DisplayBox
      Apartment = {apartment}
      aptName = {apartment}
-     onSubmitPro = {(e : any) => handlePros(e)}
-     onSubmitCon = {(e : any) => handleCons(e)}/>
+     onSubmitPro = {(e : any) => handleProsSubmit(e)}
+     onSubmitCon = {(e : any) => handleConsSubmit(e)}
+     onDone = {(e : Event) => onDoneMakeEntry(e)}
+     onChangePro = {(e : any) => handleProsInputChange(e)}
+     onChangeCon = {(e : any) => handleConsInputChange(e)}
+     proVal = {proInput}
+     conVal = {conInput}/>
 
-     <h5> Pros : {JSON.stringify(pros)}</h5>
 
-     <h5> Cons : {JSON.stringify(cons)}</h5>
+    <p>{JSON.stringify(data)}</p>
 
     </main>
 

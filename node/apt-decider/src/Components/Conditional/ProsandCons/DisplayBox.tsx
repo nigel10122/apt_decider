@@ -17,13 +17,17 @@ const DisplayBox = (props : any) => {
                 <div className='frame'>
                     <Pros
                     placeHolder = "Enter Pro"
-                    onSubmit = {props.onSubmitPro}/>
+                    onSubmit = {props.onSubmitPro}
+                    proOnChange = {props.onChangePro}
+                    proVal = {props.proVal}/>
                 </div>
               
                 <div className='frame'>
                 <Cons
                     placeHolder = "Enter Con"
-                    onSubmit = {props.onSubmitCon}/>
+                    onSubmit = {props.onSubmitCon}
+                    conOnChange = {props.onChangeCon}
+                    conVal = {props.conVal}/>
                 </div>
             </section>
     
