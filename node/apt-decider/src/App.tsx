@@ -4,6 +4,7 @@ import './App.css';
 import { Apartment } from './Components/Apartment/Apartment';
 import { DisplayBox } from './Components/Conditional/ProsandCons/DisplayBox';
 import { LineBreak } from './Styles/LineBreak';
+import { DataDisp } from './Components/Conditional/Data/DataDisp';
 
 const App = () => {
 
@@ -110,8 +111,24 @@ const App = () => {
      proVal = {proInput}
      conVal = {conInput}/>
 
+     <LineBreak/>
 
-    <p>{JSON.stringify(data)}</p>
+    <h4>{apartment}</h4>
+    {proArr.map((pro : any, index : number) => {
+      return(
+        <p>Pro - {index + 1} : {pro}</p>
+      );
+    })}
+    
+    {conArr.map((con : any, index : number) => {
+      return(
+        <p>Con - {index + 1} : {con}</p>
+      );
+    })}
+    <DataDisp
+    dataSet = {data}/>
+
+    {/* <p>{JSON.stringify(data)}</p> */}
 
     </main>
 
