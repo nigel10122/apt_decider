@@ -1,15 +1,30 @@
 import { useState } from 'react';
 import './App.css';
 
-import { Input } from './Components/Input';
+import { Apartment } from './Components/Apartment/Apartment';
+import { DisplayBox } from './Components/Conditional/ProsandCons/DisplayBox';
+import { LineBreak } from './Styles/LineBreak';
 
 const App = () => {
 
-  const [apartmentName, setApartmentName] = useState('');
+  let apartments : any = [];
 
-  const handleChange = (e : any) => {
+  const [apartment, setApartment] = useState('');
+  const [dict, setDict] = useState<any>([]);
 
-    setApartmentName(e.target.value)
+  const handleAptNameChange = (e : any) => {
+
+    e.preventDefault();
+
+    let newApartment = {
+      name : e.target.apartmentName.value,
+      pros : [],
+      cons : []
+    }
+
+    apartments.push(newApartment);
+    setApartment(e.target.apartmentName.value);
+    setDict(apartments);
 
   }
 
@@ -18,16 +33,23 @@ const App = () => {
 
     <main className="App">
 
-      <Input
+      <Apartment
       PlaceHolder = "Enter Apartment Name"
-      onChange = {(e : any) => handleChange(e)}
+      onSubmit = {(e : any) => handleAptNameChange(e)}
       />
 
-      <h1>{apartmentName}</h1>
+
+     <LineBreak/>
+
+      
+     <DisplayBox
+     Apartment = {apartment}
+     aptName = {apartment}/>
+
     </main>
 
   );
-
+     
 
 }
 
